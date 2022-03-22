@@ -26,11 +26,11 @@ app.get("/",(req,res)=>{
 })
 
 const MONGODB_URL = "mongodb+srv://tradewithmaktest:xbWn0OLmwcO5uSFo@cluster0.kxhwi.mongodb.net/trade_db?retryWrites=true&w=majority";
-const port = 5000;
+const PORT = process.env.PORT || 5000;
 
 mongoose
   .connect(MONGODB_URL)
   .then(() => {
-    app.listen(port, () => console.log(`Server running on port ${port}`));
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
   .catch((error) => console.log(`${error} did not connect`));
