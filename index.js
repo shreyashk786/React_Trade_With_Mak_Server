@@ -7,7 +7,11 @@ import tourRouter from "./routes/tour.js";
 import adduserRouter from "./routes/adduser.js";
 
 const app = express();
-
+app.use(function (request, response, next) {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(morgan("dev"));
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
@@ -16,6 +20,10 @@ app.use(cors());
 app.use("/users", userRouter); // http://localhost:5000/users/signup
 app.use("/tour", tourRouter);
 app.use("/adduser", adduserRouter);
+
+app.get("/",(req,res)=>{
+  res.send('Welcome to Trade with Mak Server');
+})
 
 const MONGODB_URL = "mongodb+srv://tradewithmaktest:xbWn0OLmwcO5uSFo@cluster0.kxhwi.mongodb.net/trade_db?retryWrites=true&w=majority";
 const port = 5000;
